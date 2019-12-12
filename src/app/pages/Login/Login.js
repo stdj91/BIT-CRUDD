@@ -11,7 +11,6 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
       email: "",
       password: "",
       error: ""
@@ -19,22 +18,24 @@ class Login extends React.Component {
   }
   onEmailChange = event => {
     this.setState({ email: event.target.value, error: "" });
+    this.resetError();
   };
   onPassChange = event => {
     this.setState({ password: event.target.value, error: "" });
+    this.resetError();
   };
-
-  /* 
-  getName = n => {
-    this.setState({ name: n });
-  }; */
 
   getEmail = n => {
     this.setState({ email: n });
+    this.resetError();
   };
 
   getPassword = n => {
     this.setState({ password: n });
+    this.resetError();
+  };
+  resetError = () => {
+    this.setState({ error: "" });
   };
 
   onSubmit = () => {
@@ -43,6 +44,8 @@ class Login extends React.Component {
         email: this.state.email,
         password: this.state.password
       })
+      // .then(data => console.log(data))
+      // .catch(data => console.log("catch", data));
       .then(data => localStorage.setItem("token", data.accessToken))
       .then(() => this.props.history.push("/"))
       .catch(error => this.setState({ error: error.message }));
@@ -53,6 +56,7 @@ class Login extends React.Component {
       <div className="container">
         <div className="row">
           <p>{this.state.error}</p>
+
           <Title text={"Login"} />
           <FormTitle title={"Sign in"} />
         </div>
@@ -75,7 +79,7 @@ class Login extends React.Component {
           <Checkbox children={"Remember me."} />
         </div>
         <div className="row">
-          <Button text={"SIGN IN"} onClick={this.props.onSubmit} />
+          <Button text={"SIGN IN"} onClick={this.onSubmit} />
         </div>
         <div className="row">
           {/* <div className="col s6"> */}

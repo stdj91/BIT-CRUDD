@@ -1,4 +1,3 @@
-import axios from "axios";
 class HttpService {
   get(url) {
     return fetch(url, {
@@ -22,8 +21,9 @@ class HttpService {
       .then(response => response.json())
       .then(data => {
         if (data.error) {
-          return new Promise((res, rej) => rej());
+          return new Promise((res, rej) => rej(data));
         }
+
         return data;
       });
   }

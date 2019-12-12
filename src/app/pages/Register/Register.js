@@ -5,29 +5,54 @@ import Input from "../../components/Input/Input";
 import "./Register.css";
 import Checkbox from "../../components/Checkbox/CheckBox";
 import Button from "../../components/Button/Button";
+import { http } from "../../../service/HttpService";
 import { Link } from "react-router-dom";
 
 class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstname: "",
-      lastname: "",
+      firstName: "",
+      lastName: "",
       email: "",
-      password: ""
+      password: "",
+      check: false,
+      error: ""
     };
   }
-  getFirstName = n => {
-    this.setState({ firstname: n });
+  getFirstName = name => {
+    this.setState({ firstname: name });
   };
-  getLastName = n => {
-    this.setState({ lastname: n });
+  getLastName = lastname => {
+    this.setState({ lastname: lastname });
   };
-  getEmail = n => {
-    this.setState({ email: n });
+  getEmail = email => {
+    this.setState({ email: email });
   };
-  getPassword = n => {
-    this.setState({ password: n });
+  getPassword = password => {
+    this.setState({ password: password });
+  };
+  getCheck = n => {
+    this.setState({ check: n });
+  };
+
+  postSignUpData = e => {
+    e.preventDefault();
+    const data = {
+      name: `${this.state.firstName} ${this.state.lastName}`,
+
+      email: this.state.email,
+      password: this.state.password
+    };
+
+    http
+      .post("/auth/register", data)
+      .then(res => {
+        this.props.history.push("/SignIn");
+      })
+      .catch(rej => {
+        this.setState({ error: rej.response.data.message });
+      });
   };
 
   render() {
@@ -75,7 +100,7 @@ class Register extends React.Component {
           />
         </div>
         <div className="row">
-          <Button text={"SIGN UP"} />
+          <Button text={"SIGN UP"} onClick={this.onClick} />
         </div>
         <div className="row">
           <p>

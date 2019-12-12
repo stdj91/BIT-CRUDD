@@ -1,28 +1,23 @@
 import React from "react";
-import {Route} from "react-router-dom";
+import { Route } from "react-router-dom";
 import Header from "./app/components/Header/Header";
 import Footer from "./app/components/Footer/Footer";
 import Register from "./app/pages/Register/Register";
 import Login from "./app/pages/Login/Login";
 import "./App.css";
+import Main from "./app/components/Main/Main";
 
 function App() {
   return (
     <div className="App">
-<Header />
-
-<Route exact path='/' component={Register} />
-<Route path='/login' component={Login} />
-{/* <Route exact path='/about' component={AboutPage} />
-<Route path='/posts' component={PostsPage} /> */}
-<Footer />
+      <Header />
+      <Main />
+      <Footer />
     </div>
   );
 }
 
 export default App;
-
-
 
 /* 
 <Header />

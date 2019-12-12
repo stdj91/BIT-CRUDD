@@ -11,10 +11,10 @@ const PostCard = props => {
           <div className="card-content">
             <p>{props.desc}</p>
           </div>
-          <div class="card-action">
-            <div class="postcard-action">
-              <span class="postcard">Author: {props.fullName()}</span>
-              <span class="postcard_coments">
+          <div className="card-action">
+            <div className="postcard-action">
+              <span className="postcard">Author: {props.name}</span>
+              <span className="postcard_coments">
                 Comments:{props.numberOfComments}
               </span>
             </div>

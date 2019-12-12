@@ -1,13 +1,14 @@
-import React from "react";
-import http from "./HttpService";
+import { http } from "./HttpService";
+import { POSTS_URL } from "../shared/constants";
+import { Post } from "../model/Post";
 
-export const fetchPost = () => {
-  const requestUrl = "";
-
-  return http.get(requestUrl).then(postData => {
-    const myPosts = postData.map(postData => {
-      return new postData(postData);
+class PostService {
+  getPosts() {
+    return http.get(POSTS_URL).then(postData => {
+      return postData.map(post => {
+        return new Post(post);
+      });
     });
-    return myPosts;
-  });
-};
+  }
+}
+export const postService = new PostService();
